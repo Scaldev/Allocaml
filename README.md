@@ -53,15 +53,16 @@ val simulate : 'good Model.t -> 'good list -> ('good -> string) -> int -> unit
 
 #### I.2.a. Mallows model
 
-The *Mallows model* is parameterized by a dispersion parameter $\varphi \in [0, 1]$ and a central ranking $r^*$. We denote this model by $\texttt{Mll}_{\varphi, r^*}$.
+The *Mallows model* is parameterized by a dispersion parameter $\varphi \in [0, 1]$ and a central ranking $r^{\star}$. We denote this model by $\texttt{Mll}_{\varphi, r^{\star}}$.
 
-Let $\texttt{sample} = \texttt{Mallows.sample (Mallows.create}$ $\varphi$ $r^*$ $\texttt{)}$.
-The probability of sampling a ranking $r \in \mathcal{L}(\mathcal{G})$ under $\texttt{Mll}_{\mu, \varphi}$ is :
-$$\mathbb{P}[\texttt{sample ()} = r] = \frac{1}{Z(\varphi, m)} \varphi^{\kappa(r^*, r)}$$
-Where $\kappa(r^*, r)$ is the *Kendall-Tau distance* between $r^*$ and $r$, i.e. the number of pairs of goods that are in a different order in the two rankings. Moreover, $Z(\varphi, m)$ is called a normalization constant and is defined as:
+Let $\texttt{sample} = \texttt{Mallows.sample (Mallows.create}$ $\varphi$ $r^{\star}$ $\texttt{)}$.
+The probability of sampling a ranking $r \in \mathcal{L}(\mathcal{G})$ under $\texttt{Mll}_{\varphi, r^{\star}}$ is:
+$$\mathbb{P}[\texttt{sample ()} = r] = \frac{1}{Z(\varphi, m)} \varphi^{\kappa(r^{\star}, r)}$$
+Where $\kappa(r^{\star}, r)$ is the *Kendall-Tau distance* between $r^{\star}$ and $r$, i.e. the number of pairs of goods that are in a different order in the two rankings. Moreover, $Z(\varphi, m)$ is called a normalization constant and is defined as:
+
 $$\quad Z(\varphi, m) = \prod_{j=1}^{m-1} \sum_{i=0}^j \varphi^i = (1 + \varphi) \cdot (1 + \varphi + \varphi^2) \cdot \cdots \cdot (1 + \varphi + \cdots + \varphi^{m-1})$$
 
-For $\varphi = 0$ only $r^*$ is sampled, also known as *Full Correlation*. Using $\varphi = 1$ leads to a uniform distribution over rankings from $\mathcal{L}(\mathcal{G})$, also known as *Impartial Culture (IC)*.
+For $\varphi = 0$ only $r^{\star}$ is sampled, also known as *Full Correlation*. Using $\varphi = 1$ leads to a uniform distribution over rankings from $\mathcal{L}(\mathcal{G})$, also known as *Impartial Culture (IC)*.
 
 See [this article](https://arxiv.org/pdf/2401.14562) for more.
 
@@ -69,8 +70,10 @@ See [this article](https://arxiv.org/pdf/2401.14562) for more.
 
 The *Plackett-Luce model* is parameterized by a *value vector* $\nu = (v_1, \cdots, v_n)$. Intuitively, $v_i > 0$ represents the social value of good $g_i$. We denote this model by $\texttt{PL}_{\nu}$.
 
-Let $\texttt{sample} = \texttt{Plackett\_luce.sample (Plackett\_luce.sample.create}$ $\nu$ $\texttt{)}$.
+Let $\texttt{sample} = \texttt{Plackettluce.sample (Plackettluce.create}$ $\nu$ $\texttt{)}$.
+
 The probability of sampling a ranking $r \in \mathcal{L}(\mathcal{G})$ under $\texttt{PL}_{\nu}$ is :
+
 $$\mathbb{P}[\texttt{sample ()} = r] = \prod_{j=1}^m \frac{\nu_{i_j}}{\sum_{l=j}^m \nu_{i_l}}$$
 
 If all values of $\nu$ are equal, we get a uniform distribution over rankings from $\mathcal{L}(\mathcal{G})$, also known as *Impartial Culture*. If $\nu_M = (M^{m-1}, \cdots, M, 1)$ when $M \to \infty$, only $(g_1, \cdots, g_n)$ is sampled, also known as *Full Correlation*.
