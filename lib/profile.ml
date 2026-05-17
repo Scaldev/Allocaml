@@ -11,6 +11,12 @@ exception Unknown_agent
 let create (goods: 'good list) : ('agent, 'good) t =
   { goods = goods ; tbl = Hashtbl.create 0 }
 
+let goods_of (p: ('agent, 'good) t) : 'good list =
+  p.goods
+
+let to_list (p: ('agent, 'good) t) : ('agent * 'good Ranking.t) list =
+  List.of_seq (Hashtbl.to_seq p.tbl)
+
 let add (p: ('agent, 'good) t) (a: 'agent) (r: 'good Ranking.t) : unit =
   if Ranking.is_ranking r p.goods then
     Hashtbl.add p.tbl a r

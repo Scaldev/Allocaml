@@ -84,6 +84,21 @@ let tests_rank = "rank", [
 ]
 
 (*****************************************************************************)
+(*                                   take                                    *)
+(*****************************************************************************)
+
+let test_take_1 () =
+  let ranking  = Ranking.of_list ['b'; 'e'; 'd'; 'a'; 'f'; 'c'] in
+  let goods    = ['c'; 'a'; 'e'; 'f'] in
+  let (taken, remaining) = Ranking.take ranking goods 2 in
+  Alcotest.(check (list char)) "" ['e'; 'a'] taken ;
+  Alcotest.(check (list char)) "" ['c'; 'f'] remaining
+  
+let tests_take = "take", [
+  test_take_1;
+]
+
+(*****************************************************************************)
 (*****************************************************************************)
 (*****************************************************************************)
 
@@ -92,7 +107,8 @@ let tests = [
   tests_length;
   tests_to_string;
   tests_is_ranking;
-  tests_rank
+  tests_rank;
+  tests_take
 ]
 
 let () = Test_allocaml.run "Ranking" tests

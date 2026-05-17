@@ -3,10 +3,11 @@ type ('agent, 'good) t
 exception Unknown_agent
 exception Invalid_ranking
 
-(**
-    [create goods] returns a preference profile for the [goods].    
-*)
+(** [create goods] returns a preference profile for the [goods]. *)
 val create : 'good list -> ('agent, 'good) t
+
+(** [goods_of p] returns the list of goods ranked in [p]. *)
+val goods_of : ('agent, 'good) t -> 'good list
 
 (**
     [add p a r] adds the ranking [r] of agent [a] to the profile [p].
@@ -14,6 +15,9 @@ val create : 'good list -> ('agent, 'good) t
     @raises Invalid_ranking if [r] is not a ranking of the goods in [p].
 *)
 val add : ('agent, 'good) t -> 'agent -> 'good Ranking.t -> unit
+
+(** [to_list p] returns the list of [(agent, ranking)] in [p]. *)
+val to_list : ('agent, 'good) t -> ('agent * 'good Ranking.t) list
 
 (**
     [rank_of p a] returns the ranking of agent [a].

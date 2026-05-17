@@ -9,16 +9,15 @@ let to_list (r: 'good t): 'good list = r
 
 let length (r: 'good t): int = List.length r
 
-let to_string (f: 'good -> string) (r: 'good t) : string =
-  String.concat " > " (List.map f r)
+let set_of_goods (goods: 'good list) : ('good, unit) Hashtbl.t =
+  let n = List.length goods in
+  let set = Hashtbl.create n in
+  List.iter (fun g -> Hashtbl.add set g ()) goods ;
+  set
 
-let is_ranking (r: 'good t) (xs: 'good list) : bool =
-  List.length r = List.length xs
-    && xs
-    |> List.map (fun x -> (x, true))
-    |> List.to_seq
-    |> Hashtbl.of_seq
-    |> fun tbl -> List.for_all (fun g -> Hashtbl.find_opt tbl g <> None) r
+let is_ranking (r: 'good t) (goods: 'good list) : bool =
+  let set = set_of_goods goods in
+  List.length r = List.length goods && List.for_all (Hashtbl.mem set) r
 
 let rank (r: 'good t) (a: 'good) : int =
   match List.find_index ((=) a) r with
@@ -27,3 +26,13 @@ let rank (r: 'good t) (a: 'good) : int =
 
 let nth (r: 'good t) (i: int) : 'good =
   List.nth r (i-1)
+
+let take (r: 'good t) (goods: 'good list) (n: int) : 'good list * 'good list =
+  let set       = set_of_goods goods in
+  let filtered  = List.filter (Hashtbl.mem set) (to_list r) in
+  let taken     = List.take n filtered in
+  let remaining = List.filter (fun g -> not (List.mem g taken)) goods in
+  (taken, remaining)
+
+let to_string (f: 'good -> string) (r: 'good t) : string =
+  String.concat " > " (List.map f r)

@@ -36,5 +36,15 @@ val rank : 'good t -> 'good -> int
 *)
 val nth : 'good t -> int -> 'good
 
+(**
+  [take r goods n] returns a pair [(taken, remaining)] such that
+  [taken] are the [n] most prefered goods in [goods] according to [r],
+  [remaining] the others.
+  
+  {b Postcondition:} The order in [taken] are from most prefered to least
+  prefered. The order in [remaining] is the same as in [goods].
+*)
+val take : 'good t -> 'good list -> int -> 'good list * 'good list
+
 (** [to_string f [x_1 > ... > x_n]] returns [f x_1 > ... > f x_n] as a string. *)
 val to_string : ('good -> string) -> 'good t -> string
