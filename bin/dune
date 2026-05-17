@@ -1,0 +1,4 @@
+(executable
+ (public_name Allocaml)
+ (name main)
+ (libraries Allocaml))

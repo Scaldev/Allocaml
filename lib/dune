@@ -1,0 +1,6 @@
+(include_subdirs qualified)
+(library
+ (name Allocaml)
+ (public_name Allocaml)
+ (wrapped false)
+ (instrumentation (backend bisect_ppx)))

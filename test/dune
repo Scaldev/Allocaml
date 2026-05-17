@@ -1,0 +1,15 @@
+(test
+ (name test_ranking)
+ (libraries Allocaml alcotest))
+
+(test
+ (name test_profile)
+ (libraries Allocaml alcotest))
+
+(test
+ (name test_mallows)
+ (libraries Allocaml alcotest))
+ 
+(test
+ (name test_plackett_luce)
+ (libraries Allocaml alcotest))
