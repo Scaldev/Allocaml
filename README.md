@@ -10,9 +10,9 @@ In `/lib/`.
 
 ### I.1. Ranking and profile.
 
-Let $\mathcal{A} = \{ a_1, \cdots, a_n \}$ be a set of $n$ agents and $\mathcal{G} = \{ g_1, \cdots, g_m \}$ be a set of $m$ goods.
+Let $\mathcal{A} = \\{ a_1, \cdots, a_n \\}$ be a set of $n$ agents and $\mathcal{G} = \\{ g_1, \cdots, g_m \\}$ be a set of $m$ goods.
 
-A *ranking* $\succ$ is a permutation of the goods $\{g_1, \cdots, g_m \}$, represented as $[g_{\sigma^{-1}(1)} \succ \cdots \succ g_{\sigma^{-1}(m)}]$. We note $\mathcal{L}(\mathcal{G})$ the set of all rankings over $\mathcal{G}$.
+A *ranking* $\succ$ is a permutation of the goods in $\mathcal{G}$ represented as $[g_{\sigma^{-1}(1)} \succ \cdots \succ g_{\sigma^{-1}(m)}]$. We note $\mathcal{L}(\mathcal{G})$ the set of all rankings over $\mathcal{G}$.
 
 ```ml
 (* ranking.ml *)
