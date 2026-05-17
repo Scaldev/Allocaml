@@ -37,12 +37,16 @@ val rank : 'good t -> 'good -> int
 val nth : 'good t -> int -> 'good
 
 (**
+  {b Precondition:} all goods in [goods] are ranked in [r].
+
   [take r goods n] returns a pair [(taken, remaining)] such that
   [taken] are the [n] most prefered goods in [goods] according to [r],
   [remaining] the others.
   
-  {b Postcondition:} The order in [taken] are from most prefered to least
-  prefered. The order in [remaining] is the same as in [goods].
+  {b Postcondition:} The goods in [taken] are ordered from most prefered to
+  least prefered. The order in [remaining] is the same as in [goods].
+
+  {b Complexity:} In [O(|r|)].
 *)
 val take : 'good t -> 'good list -> int -> 'good list * 'good list
 

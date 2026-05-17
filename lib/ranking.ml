@@ -1,6 +1,8 @@
 (* Because our rankings are linear, we will represent them as a list. *)
 type 'good t = 'good list
 
+let (<<) = Fun.compose
+
 exception Unranked_good
 
 let of_list (xs: 'good list) : 'good t = xs
@@ -31,7 +33,8 @@ let take (r: 'good t) (goods: 'good list) (n: int) : 'good list * 'good list =
   let set       = set_of_goods goods in
   let filtered  = List.filter (Hashtbl.mem set) (to_list r) in
   let taken     = List.take n filtered in
-  let remaining = List.filter (fun g -> not (List.mem g taken)) goods in
+  let set       = set_of_goods taken in
+  let remaining = List.filter (not << Hashtbl.mem set) goods in
   (taken, remaining)
 
 let to_string (f: 'good -> string) (r: 'good t) : string =
